@@ -22,9 +22,11 @@ tokio = { workspace = true, features = [
     "signal",
 ] }
 clap = { workspace = true, features = ["derive"] }
+
 [build-dependencies]
 anyhow = { workspace = true }
 aya-build = { workspace = true }
+
 # TODO(https://github.com/rust-lang/cargo/issues/12375): this should be an artifact dependency, but
 # it's not possible to tell cargo to use `-Z build-std` to build it. We cargo-in-cargo in the build
 # script to build this, but we want to teach cargo about the dependecy so that cache invalidation
@@ -42,3 +44,6 @@ xdp-firewall-aya-ebpf = { path = "../xdp-firewall-aya-ebpf" }
 [[bin]]
 name = "xdp-firewall-aya"
 path = "src/main.rs"
+
+[profile.release]
+panic = "abort"

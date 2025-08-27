@@ -1,0 +1,140 @@
+#![no_std]
+#![no_main]
+
+use aya_ebpf::{bindings::xdp_action, macros::xdp, programs::XdpContext, maps::HashMap};
+use aya_log_ebpf::info;
+use aya_ebpf::macros::map;
+
+const ETH_HDR_LEN: usize = 14;
+const ETH_P_IP: u16 = 0x0800;
+
+#[map(name = "BLOCKED_IPS")]
+static mut BLOCKED_IPS: HashMap<u32, u8> = HashMap::with_max_entries(1024, 0);
+
+// Define Ethernet and IPv4 header structs
+#[repr(C)]
+struct EthHdr {
+    dst: [u8; 6],
+    src: [u8; 6],
+    ethertype: u16,
+}
+
+#[repr(C)]
+struct Ipv4Hdr {
+    version_ihl: u8,
+    tos: u8,
+    tot_len: u16,
+    id: u16,
+    frag_off: u16,
+    ttl: u8,
+    protocol: u8,
+    check: u16,
+    src: u32,
+    dst: u32,
+}
+
+#[xdp]
+pub fn xdp_firewall_aya(ctx: XdpContext) -> u32 { //kernel calls this for every packet
+    match try_xdp_firewall_aya(ctx) {
+        Ok(ret) => ret,
+        Err(_) => xdp_action::XDP_ABORTED,
+    }
+}
+
+fn try_xdp_firewall_aya(ctx: XdpContext) -> Result<u32, u32> {
+    info!(&ctx, "received a packet");
+
+    // Get Ethernet header
+    let eth_hdr = ctx.data() as *const EthHdr;
+    let eth_proto = unsafe { u16::from_be((*eth_hdr).ethertype) };
+
+    if eth_proto != ETH_P_IP {
+        return Ok(xdp_action::XDP_PASS);
+    }
+
+    // Get IPv4 header
+    let ip_hdr = (ctx.data() + ETH_HDR_LEN) as *const Ipv4Hdr;
+    let src_ip = unsafe { u32::from_be((*ip_hdr).src) };
+
+    // Check if src_ip is in BLOCKED_IPS
+    unsafe {
+    // Get a raw pointer to the map
+    let map_ptr = BLOCKED_IPS.as_mut_ptr();
+    // Use aya_ebpf::maps::HashMap::get_ptr to check for the key
+    if (*map_ptr).get_ptr(&src_ip).is_some() {
+        return Ok(xdp_action::XDP_DROP);
+    }
+}
+
+
+    Ok(xdp_action::XDP_PASS)
+}
+
+
+#[cfg(not(test))]
+#[panic_handler]
+fn panic(_info: &core::panic::PanicInfo) -> ! {
+    loop {}
+}
+
+#[unsafe(link_section = "license")]
+#[unsafe(no_mangle)]
+static LICENSE: [u8; 13] = *b"Dual MIT/GPL\0";
+
+//user CLI side
+
+use anyhow::Context as _;
+use aya::programs::{Xdp, XdpFlags};
+use clap::Parser;
+#[rustfmt::skip]
+use log::{debug, warn};
+use tokio::signal;
+
+#[derive(Debug, Parser)]
+struct Opt {
+    #[clap(short, long, default_value = "eth0")]
+    iface: String,
+}
+
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    let opt = Opt::parse();
+
+    env_logger::init();
+
+    // Bump the memlock rlimit. This is needed for older kernels that don't use the
+    // new memcg based accounting, see https://lwn.net/Articles/837122/
+    let rlim = libc::rlimit {
+        rlim_cur: libc::RLIM_INFINITY,
+        rlim_max: libc::RLIM_INFINITY,
+    };
+    let ret = unsafe { libc::setrlimit(libc::RLIMIT_MEMLOCK, &rlim) };
+    if ret != 0 {
+        debug!("remove limit on locked memory failed, ret is: {ret}");
+    }
+
+    // This will include your eBPF object file as raw bytes at compile-time and load it at
+    // runtime. This approach is recommended for most real-world use cases. If you would
+    // like to specify the eBPF program at runtime rather than at compile-time, you can
+    // reach for `Bpf::load_file` instead.
+    let mut ebpf = aya::Ebpf::load(aya::include_bytes_aligned!(concat!(
+        env!("OUT_DIR"),
+        "/xdp-firewall-aya"
+    )))?;
+    if let Err(e) = aya_log::EbpfLogger::init(&mut ebpf) {
+        // This can happen if you remove all log statements from your eBPF program.
+        warn!("failed to initialize eBPF logger: {e}");
+    }
+    let Opt { iface } = opt;
+    let program: &mut Xdp = ebpf.program_mut("xdp_firewall_aya").unwrap().try_into()?;
+    program.load()?;
+    program.attach(&iface, XdpFlags::default())
+        .context("failed to attach the XDP program with default flags - try changing XdpFlags::default() to XdpFlags::SKB_MODE")?;
+
+    let ctrl_c = signal::ctrl_c();
+    println!("Waiting for Ctrl-C...");
+    ctrl_c.await?;
+    println!("Exiting...");
+
+    Ok(())
+}
