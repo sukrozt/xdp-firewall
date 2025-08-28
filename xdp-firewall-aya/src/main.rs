@@ -18,7 +18,6 @@ fn main() -> Result<(), anyhow::Error> {
         bpf.map_mut("BLOCKED_IPS").ok_or(anyhow::anyhow!("Map not found"))?
     )?;
 
-    // Example: Block 192.168.1.100
     let ip = Ipv4Addr::new(192, 168, 1, 100);
     let ip_u32 = u32::from(ip).to_be(); // network byte order
 

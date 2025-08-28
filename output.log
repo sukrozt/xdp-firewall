@@ -1,0 +1,1108 @@
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/sukriye/xdp-firewall-aya/xdp-firewall-aya/Cargo.toml
+workspace: /home/sukriye/xdp-firewall-aya/Cargo.toml
+warning: profiles for the non root package will be ignored, specify profiles at the workspace root:
+package:   /home/sukriye/xdp-firewall-aya/xdp-firewall-aya-ebpf/Cargo.toml
+workspace: /home/sukriye/xdp-firewall-aya/Cargo.toml
+   Compiling allocator-api2 v0.2.21
+   Compiling log v0.4.27
+error[E0463]: can't find crate for `std`
+  |
+  = note: the `bpfel-unknown-none` target may not support the standard library
+  = note: `std` is required by `log` because it does not declare `#![no_std]`
+  = help: consider building the standard library from source with `cargo build -Zbuild-std`
+
+error: cannot resolve a prelude import
+
+error[E0463]: can't find crate for `alloc`
+ --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allocator-api2-0.2.21/src/lib.rs:7:1
+  |
+7 | extern crate alloc as alloc_crate;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ can't find crate
+
+error[E0432]: unresolved import `super::alloc::handle_alloc_error`
+  --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allocator-api2-0.2.21/src/stable/raw_vec.rs:15:5
+   |
+15 | use super::alloc::handle_alloc_error;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0463]: can't find crate for `std`
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:395:5
+    |
+395 | use std::cfg;
+    |     ^^^ can't find crate
+    |
+    = note: the `bpfel-unknown-none` target may not support the standard library
+    = help: consider building the standard library from source with `cargo build -Zbuild-std`
+
+error[E0463]: can't find crate for `std`
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:397:5
+    |
+397 | use std::error;
+    |     ^^^ can't find crate
+    |
+    = note: the `bpfel-unknown-none` target may not support the standard library
+    = help: consider building the standard library from source with `cargo build -Zbuild-std`
+
+error[E0463]: can't find crate for `std`
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:398:5
+    |
+398 | use std::str::FromStr;
+    |     ^^^ can't find crate
+    |
+    = note: the `bpfel-unknown-none` target may not support the standard library
+    = help: consider building the standard library from source with `cargo build -Zbuild-std`
+
+error[E0463]: can't find crate for `std`
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:399:5
+    |
+399 | use std::{cmp, fmt, mem};
+    |     ^^^ can't find crate
+    |
+    = note: the `bpfel-unknown-none` target may not support the standard library
+    = help: consider building the standard library from source with `cargo build -Zbuild-std`
+
+error[E0463]: can't find crate for `std`
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:412:5
+    |
+412 | use std::cell::Cell;
+    |     ^^^ can't find crate
+    |
+    = note: the `bpfel-unknown-none` target may not support the standard library
+    = help: consider building the standard library from source with `cargo build -Zbuild-std`
+
+error[E0463]: can't find crate for `std`
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:414:5
+    |
+414 | use std::sync::atomic::Ordering;
+    |     ^^^ can't find crate
+    |
+    = note: the `bpfel-unknown-none` target may not support the standard library
+    = help: consider building the standard library from source with `cargo build -Zbuild-std`
+
+error[E0463]: can't find crate for `std`
+ --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/__private_api.rs:5:5
+  |
+5 | use std::fmt::Arguments;
+  |     ^^^ can't find crate
+  |
+  = note: the `bpfel-unknown-none` target may not support the standard library
+  = help: consider building the standard library from source with `cargo build -Zbuild-std`
+
+error[E0463]: can't find crate for `std`
+ --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/__private_api.rs:6:5
+  |
+6 | use std::panic::Location;
+  |     ^^^ can't find crate
+  |
+  = note: the `bpfel-unknown-none` target may not support the standard library
+  = help: consider building the standard library from source with `cargo build -Zbuild-std`
+
+error[E0463]: can't find crate for `std`
+ --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/__private_api.rs:7:9
+  |
+7 | pub use std::{format_args, module_path, stringify};
+  |         ^^^ can't find crate
+  |
+  = note: the `bpfel-unknown-none` target may not support the standard library
+  = help: consider building the standard library from source with `cargo build -Zbuild-std`
+
+error: cannot find attribute `derive` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:485:3
+    |
+485 | #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug, Hash)]
+    |   ^^^^^^
+    |
+help: consider importing this attribute macro
+    |
+395 + use core::prelude::rust_2024::derive;
+    |
+
+error: cannot find attribute `derive` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:605:3
+    |
+605 | #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug, Hash)]
+    |   ^^^^^^
+    |
+help: consider importing this attribute macro
+    |
+395 + use core::prelude::rust_2024::derive;
+    |
+
+error: cannot find attribute `derive` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:705:3
+    |
+705 | #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
+    |   ^^^^^^
+    |
+help: consider importing this attribute macro
+    |
+395 + use core::prelude::rust_2024::derive;
+    |
+
+error: cannot find attribute `derive` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:766:3
+    |
+766 | #[derive(Clone, Debug)]
+    |   ^^^^^^
+    |
+help: consider importing this attribute macro
+    |
+395 + use core::prelude::rust_2024::derive;
+    |
+
+error: cannot find attribute `derive` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:927:3
+    |
+927 | #[derive(Debug)]
+    |   ^^^^^^
+    |
+help: consider importing this attribute macro
+    |
+395 + use core::prelude::rust_2024::derive;
+    |
+
+error: cannot find macro `format_args` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:949:23
+    |
+949 |                 args: format_args!(""),
+    |                       ^^^^^^^^^^^
+    |
+help: consider importing this macro
+    |
+395 + use core::format_args;
+    |
+
+error: cannot find attribute `derive` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1082:3
+     |
+1082 | #[derive(Clone, Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
+     |   ^^^^^^
+     |
+help: consider importing this attribute macro
+     |
+ 395 + use core::prelude::rust_2024::derive;
+     |
+
+error: cannot find attribute `derive` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1124:3
+     |
+1124 | #[derive(Eq, PartialEq, Ord, PartialOrd, Hash, Debug)]
+     |   ^^^^^^
+     |
+help: consider importing this attribute macro
+     |
+ 395 + use core::prelude::rust_2024::derive;
+     |
+
+error: cannot find macro `unreachable` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1463:13
+     |
+1463 |             unreachable!("set_logger_racy must not be used with other initialization functions")
+     |             ^^^^^^^^^^^
+     |
+help: consider importing this macro
+     |
+ 395 + use core::unreachable;
+     |
+
+error: cannot find attribute `derive` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1473:3
+     |
+1473 | #[derive(Debug)]
+     |   ^^^^^^
+     |
+help: consider importing this attribute macro
+     |
+ 395 + use core::prelude::rust_2024::derive;
+     |
+
+error: cannot find attribute `derive` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1490:3
+     |
+1490 | #[derive(Debug, PartialEq, Eq)]
+     |   ^^^^^^
+     |
+help: consider importing this attribute macro
+     |
+ 395 + use core::prelude::rust_2024::derive;
+     |
+
+error: cannot find attribute `derive` in this scope
+  --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/__private_api.rs:38:3
+   |
+38 | #[derive(Debug)]
+   |   ^^^^^^
+   |
+help: consider importing this attribute macro
+   |
+ 3 + use core::prelude::rust_2024::derive;
+   |
+
+error: cannot find macro `panic` in this scope
+  --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/__private_api.rs:65:9
+   |
+65 |         panic!("key-value support is experimental and must be enabled using the `kv` feature")
+   |         ^^^^^
+   |
+help: consider importing this macro
+   |
+ 3 + use core::panic;
+   |
+
+error[E0463]: can't find crate for `std`
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1236:17
+     |
+1236 | impl<T> Log for std::boxed::Box<T>
+     |                 ^^^ can't find crate
+     |
+     = note: the `bpfel-unknown-none` target may not support the standard library
+     = help: consider building the standard library from source with `cargo build -Zbuild-std`
+
+error[E0463]: can't find crate for `std`
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1253:17
+     |
+1253 | impl<T> Log for std::sync::Arc<T>
+     |                 ^^^ can't find crate
+     |
+     = note: the `bpfel-unknown-none` target may not support the standard library
+     = help: consider building the standard library from source with `cargo build -Zbuild-std`
+
+error[E0405]: cannot find trait `Sync` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:454:13
+    |
+454 | unsafe impl Sync for AtomicUsize {}
+    |             ^^^^ not found in this scope
+    |
+help: consider importing this trait
+    |
+395 + use core::marker::Sync;
+    |
+
+error[E0405]: cannot find trait `PartialEq` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:512:6
+    |
+512 | impl PartialEq<LevelFilter> for Level {
+    |      ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this trait
+    |
+395 + use core::cmp::PartialEq;
+    |
+
+error[E0405]: cannot find trait `PartialOrd` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:519:6
+    |
+519 | impl PartialOrd<LevelFilter> for Level {
+    |      ^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this trait
+    |
+395 + use core::cmp::PartialOrd;
+    |
+
+error[E0412]: cannot find type `Option` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:521:51
+    |
+521 |     fn partial_cmp(&self, other: &LevelFilter) -> Option<cmp::Ordering> {
+    |                                                   ^^^^^^ not found in this scope
+    |
+help: consider importing this enum
+    |
+395 + use core::option::Option;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:522:9
+    |
+522 |         Some((*self as usize).cmp(&(*other as usize)))
+    |         ^^^^ not found in this scope
+    |
+help: consider importing this tuple variant
+    |
+395 + use core::option::Option::Some;
+    |
+
+error[E0412]: cannot find type `Result` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:528:33
+    |
+528 |     fn from_str(level: &str) -> Result<Level, Self::Err> {
+    |                                 ^^^^^^ not found in this scope
+    |
+help: consider importing one of these items
+    |
+395 + use core::fmt::Result;
+    |
+395 + use core::result::Result;
+    |
+
+error[E0412]: cannot find type `Option` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:547:32
+    |
+547 |     fn from_usize(u: usize) -> Option<Level> {
+    |                                ^^^^^^ not found in this scope
+    |
+help: consider importing this enum
+    |
+395 + use core::option::Option;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:549:18
+    |
+549 |             1 => Some(Level::Error),
+    |                  ^^^^ not found in this scope
+    |
+help: consider importing this tuple variant
+    |
+395 + use core::option::Option::Some;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:550:18
+    |
+550 |             2 => Some(Level::Warn),
+    |                  ^^^^ not found in this scope
+    |
+help: consider importing this tuple variant
+    |
+395 + use core::option::Option::Some;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:551:18
+    |
+551 |             3 => Some(Level::Info),
+    |                  ^^^^ not found in this scope
+    |
+help: consider importing this tuple variant
+    |
+395 + use core::option::Option::Some;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:552:18
+    |
+552 |             4 => Some(Level::Debug),
+    |                  ^^^^ not found in this scope
+    |
+help: consider importing this tuple variant
+    |
+395 + use core::option::Option::Some;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:553:18
+    |
+553 |             5 => Some(Level::Trace),
+    |                  ^^^^ not found in this scope
+    |
+help: consider importing this tuple variant
+    |
+395 + use core::option::Option::Some;
+    |
+
+error[E0425]: cannot find value `None` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:554:18
+    |
+554 |             _ => None,
+    |                  ^^^^ not found in this scope
+    |
+help: consider importing this unit variant
+    |
+395 + use core::option::Option::None;
+    |
+
+error[E0405]: cannot find trait `Iterator` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:591:27
+    |
+591 |     pub fn iter() -> impl Iterator<Item = Self> {
+    |                           ^^^^^^^^ not found in this scope
+    |
+help: consider importing this trait
+    |
+395 + use core::iter::Iterator;
+    |
+
+error[E0405]: cannot find trait `PartialEq` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:621:6
+    |
+621 | impl PartialEq<Level> for LevelFilter {
+    |      ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this trait
+    |
+395 + use core::cmp::PartialEq;
+    |
+
+error[E0405]: cannot find trait `PartialOrd` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:628:6
+    |
+628 | impl PartialOrd<Level> for LevelFilter {
+    |      ^^^^^^^^^^ not found in this scope
+    |
+help: consider importing this trait
+    |
+395 + use core::cmp::PartialOrd;
+    |
+
+error[E0412]: cannot find type `Option` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:630:45
+    |
+630 |     fn partial_cmp(&self, other: &Level) -> Option<cmp::Ordering> {
+    |                                             ^^^^^^ not found in this scope
+    |
+help: consider importing this enum
+    |
+395 + use core::option::Option;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:631:9
+    |
+631 |         Some((*self as usize).cmp(&(*other as usize)))
+    |         ^^^^ not found in this scope
+    |
+help: consider importing this tuple variant
+    |
+395 + use core::option::Option::Some;
+    |
+
+error[E0412]: cannot find type `Result` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:637:33
+    |
+637 |     fn from_str(level: &str) -> Result<LevelFilter, Self::Err> {
+    |                                 ^^^^^^ not found in this scope
+    |
+help: consider importing one of these items
+    |
+395 + use core::fmt::Result;
+    |
+395 + use core::result::Result;
+    |
+
+error[E0412]: cannot find type `Option` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:653:32
+    |
+653 |     fn from_usize(u: usize) -> Option<LevelFilter> {
+    |                                ^^^^^^ not found in this scope
+    |
+help: consider importing this enum
+    |
+395 + use core::option::Option;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:655:18
+    |
+655 |             0 => Some(LevelFilter::Off),
+    |                  ^^^^ not found in this scope
+    |
+help: consider importing this tuple variant
+    |
+395 + use core::option::Option::Some;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:656:18
+    |
+656 |             1 => Some(LevelFilter::Error),
+    |                  ^^^^ not found in this scope
+    |
+help: consider importing this tuple variant
+    |
+395 + use core::option::Option::Some;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:657:18
+    |
+657 |             2 => Some(LevelFilter::Warn),
+    |                  ^^^^ not found in this scope
+    |
+help: consider importing this tuple variant
+    |
+395 + use core::option::Option::Some;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:658:18
+    |
+658 |             3 => Some(LevelFilter::Info),
+    |                  ^^^^ not found in this scope
+    |
+help: consider importing this tuple variant
+    |
+395 + use core::option::Option::Some;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:659:18
+    |
+659 |             4 => Some(LevelFilter::Debug),
+    |                  ^^^^ not found in this scope
+    |
+help: consider importing this tuple variant
+    |
+395 + use core::option::Option::Some;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:660:18
+    |
+660 |             5 => Some(LevelFilter::Trace),
+    |                  ^^^^ not found in this scope
+    |
+help: consider importing this tuple variant
+    |
+395 + use core::option::Option::Some;
+    |
+
+error[E0425]: cannot find value `None` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:661:18
+    |
+661 |             _ => None,
+    |                  ^^^^ not found in this scope
+    |
+help: consider importing this unit variant
+    |
+395 + use core::option::Option::None;
+    |
+
+error[E0412]: cannot find type `Option` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:675:31
+    |
+675 |     pub fn to_level(&self) -> Option<Level> {
+    |                               ^^^^^^ not found in this scope
+    |
+help: consider importing this enum
+    |
+395 + use core::option::Option;
+    |
+
+error[E0405]: cannot find trait `Iterator` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:700:27
+    |
+700 |     pub fn iter() -> impl Iterator<Item = Self> {
+    |                           ^^^^^^^^ not found in this scope
+    |
+help: consider importing this trait
+    |
+395 + use core::iter::Iterator;
+    |
+
+error[E0412]: cannot find type `Option` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:770:18
+    |
+770 |     module_path: Option<MaybeStaticStr<'a>>,
+    |                  ^^^^^^ not found in this scope
+    |
+help: consider importing this enum
+    |
+395 + use core::option::Option;
+    |
+
+error[E0412]: cannot find type `Option` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:771:11
+    |
+771 |     file: Option<MaybeStaticStr<'a>>,
+    |           ^^^^^^ not found in this scope
+    |
+help: consider importing this enum
+    |
+395 + use core::option::Option;
+    |
+
+error[E0412]: cannot find type `Option` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:772:11
+    |
+772 |     line: Option<u32>,
+    |           ^^^^^^ not found in this scope
+    |
+help: consider importing this enum
+    |
+395 + use core::option::Option;
+    |
+
+error[E0412]: cannot find type `Option` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:827:34
+    |
+827 |     pub fn module_path(&self) -> Option<&'a str> {
+    |                                  ^^^^^^ not found in this scope
+    |
+help: consider importing this enum
+    |
+395 + use core::option::Option;
+    |
+
+error[E0412]: cannot find type `Option` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:833:41
+    |
+833 |     pub fn module_path_static(&self) -> Option<&'static str> {
+    |                                         ^^^^^^ not found in this scope
+    |
+help: consider importing this enum
+    |
+395 + use core::option::Option;
+    |
+
+error[E0531]: cannot find tuple struct or tuple variant `Some` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:835:13
+    |
+835 |             Some(MaybeStaticStr::Static(s)) => Some(s),
+    |             ^^^^ not found in this scope
+    |
+help: consider importing this tuple variant
+    |
+395 + use core::option::Option::Some;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:835:48
+    |
+835 |             Some(MaybeStaticStr::Static(s)) => Some(s),
+    |                                                ^^^^ not found in this scope
+    |
+help: consider importing this tuple variant
+    |
+395 + use core::option::Option::Some;
+    |
+
+error[E0425]: cannot find value `None` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:836:18
+    |
+836 |             _ => None,
+    |                  ^^^^ not found in this scope
+    |
+help: consider importing this unit variant
+    |
+395 + use core::option::Option::None;
+    |
+
+error[E0412]: cannot find type `Option` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:842:27
+    |
+842 |     pub fn file(&self) -> Option<&'a str> {
+    |                           ^^^^^^ not found in this scope
+    |
+help: consider importing this enum
+    |
+395 + use core::option::Option;
+    |
+
+error[E0412]: cannot find type `Option` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:848:34
+    |
+848 |     pub fn file_static(&self) -> Option<&'static str> {
+    |                                  ^^^^^^ not found in this scope
+    |
+help: consider importing this enum
+    |
+395 + use core::option::Option;
+    |
+
+error[E0531]: cannot find tuple struct or tuple variant `Some` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:850:13
+    |
+850 |             Some(MaybeStaticStr::Static(s)) => Some(s),
+    |             ^^^^ not found in this scope
+    |
+help: consider importing this tuple variant
+    |
+395 + use core::option::Option::Some;
+    |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:850:48
+    |
+850 |             Some(MaybeStaticStr::Static(s)) => Some(s),
+    |                                                ^^^^ not found in this scope
+    |
+help: consider importing this tuple variant
+    |
+395 + use core::option::Option::Some;
+    |
+
+error[E0425]: cannot find value `None` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:851:18
+    |
+851 |             _ => None,
+    |                  ^^^^ not found in this scope
+    |
+help: consider importing this unit variant
+    |
+395 + use core::option::Option::None;
+    |
+
+error[E0412]: cannot find type `Option` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:857:27
+    |
+857 |     pub fn line(&self) -> Option<u32> {
+    |                           ^^^^^^ not found in this scope
+    |
+help: consider importing this enum
+    |
+395 + use core::option::Option;
+    |
+
+error[E0425]: cannot find value `None` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:951:30
+    |
+951 |                 module_path: None,
+    |                              ^^^^ not found in this scope
+    |
+help: consider importing this unit variant
+    |
+395 + use core::option::Option::None;
+    |
+
+error[E0425]: cannot find value `None` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:952:23
+    |
+952 |                 file: None,
+    |                       ^^^^ not found in this scope
+    |
+help: consider importing this unit variant
+    |
+395 + use core::option::Option::None;
+    |
+
+error[E0425]: cannot find value `None` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:953:23
+    |
+953 |                 line: None,
+    |                       ^^^^ not found in this scope
+    |
+help: consider importing this unit variant
+    |
+395 + use core::option::Option::None;
+    |
+
+error[E0412]: cannot find type `Option` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:990:41
+    |
+990 |     pub fn module_path(&mut self, path: Option<&'a str>) -> &mut RecordBuilder<'a> {
+    |                                         ^^^^^^ not found in this scope
+    |
+help: consider importing this enum
+    |
+395 + use core::option::Option;
+    |
+
+error[E0412]: cannot find type `Option` in this scope
+   --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:997:48
+    |
+997 |     pub fn module_path_static(&mut self, path: Option<&'static str>) -> &mut RecordBuilder<'a> {
+    |                                                ^^^^^^ not found in this scope
+    |
+help: consider importing this enum
+    |
+395 + use core::option::Option;
+    |
+
+error[E0412]: cannot find type `Option` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1004:34
+     |
+1004 |     pub fn file(&mut self, file: Option<&'a str>) -> &mut RecordBuilder<'a> {
+     |                                  ^^^^^^ not found in this scope
+     |
+help: consider importing this enum
+     |
+ 395 + use core::option::Option;
+     |
+
+error[E0412]: cannot find type `Option` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1011:41
+     |
+1011 |     pub fn file_static(&mut self, file: Option<&'static str>) -> &mut RecordBuilder<'a> {
+     |                                         ^^^^^^ not found in this scope
+     |
+help: consider importing this enum
+     |
+ 395 + use core::option::Option;
+     |
+
+error[E0412]: cannot find type `Option` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1018:34
+     |
+1018 |     pub fn line(&mut self, line: Option<u32>) -> &mut RecordBuilder<'a> {
+     |                                  ^^^^^^ not found in this scope
+     |
+help: consider importing this enum
+     |
+ 395 + use core::option::Option;
+     |
+
+error[E0405]: cannot find trait `Default` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1038:6
+     |
+1038 | impl Default for RecordBuilder<'_> {
+     |      ^^^^^^^ not found in this scope
+     |
+help: consider importing this trait
+     |
+ 395 + use core::default::Default;
+     |
+
+error[E0405]: cannot find trait `Default` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1167:6
+     |
+1167 | impl Default for MetadataBuilder<'_> {
+     |      ^^^^^^^ not found in this scope
+     |
+help: consider importing this trait
+     |
+ 395 + use core::default::Default;
+     |
+
+error[E0405]: cannot find trait `Sync` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1174:16
+     |
+1174 | pub trait Log: Sync + Send {
+     |                ^^^^ not found in this scope
+     |
+help: consider importing this trait
+     |
+ 395 + use core::marker::Sync;
+     |
+
+error[E0405]: cannot find trait `Send` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1174:23
+     |
+1174 | pub trait Log: Sync + Send {
+     |                       ^^^^ not found in this scope
+     |
+help: consider importing this trait
+     |
+ 395 + use core::marker::Send;
+     |
+
+error[E0405]: cannot find trait `Sized` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1221:9
+     |
+1221 |     T: ?Sized + Log,
+     |         ^^^^^ not found in this scope
+     |
+help: consider importing this trait
+     |
+ 395 + use core::marker::Sized;
+     |
+
+error[E0405]: cannot find trait `Sized` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1238:9
+     |
+1238 |     T: ?Sized + Log,
+     |         ^^^^^ not found in this scope
+     |
+help: consider importing this trait
+     |
+ 395 + use core::marker::Sized;
+     |
+
+error[E0405]: cannot find trait `Sized` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1255:9
+     |
+1255 |     T: ?Sized + Log,
+     |         ^^^^^ not found in this scope
+     |
+help: consider importing this trait
+     |
+ 395 + use core::marker::Sized;
+     |
+
+error[E0412]: cannot find type `Result` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1454:60
+     |
+1454 | pub unsafe fn set_logger_racy(logger: &'static dyn Log) -> Result<(), SetLoggerError> {
+     |                                                            ^^^^^^ not found in this scope
+     |
+help: consider importing one of these items
+     |
+ 395 + use core::fmt::Result;
+     |
+ 395 + use core::result::Result;
+     |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Ok` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1459:13
+     |
+1459 |             Ok(())
+     |             ^^ not found in this scope
+     |
+help: consider importing this tuple variant
+     |
+ 395 + use core::result::Result::Ok;
+     |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Err` in this scope
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1465:14
+     |
+1465 |         _ => Err(SetLoggerError(())),
+     |              ^^^ not found in this scope
+     |
+help: consider importing this tuple variant
+     |
+ 395 + use core::result::Result::Err;
+     |
+
+error[E0412]: cannot find type `Option` in this scope
+  --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/__private_api.rs:15:30
+   |
+15 |         fn into_kvs(self) -> Option<&'a [(&'a str, super::Value<'a>)]>;
+   |                              ^^^^^^ not found in this scope
+   |
+help: consider importing this enum
+   |
+13 +     use core::option::Option;
+   |
+
+error[E0412]: cannot find type `Option` in this scope
+  --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/__private_api.rs:23:26
+   |
+23 |     fn into_kvs(self) -> Option<&'a [(&'a str, Value<'a>)]> {
+   |                          ^^^^^^ not found in this scope
+   |
+help: consider importing this enum
+   |
+ 3 + use core::option::Option;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+  --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/__private_api.rs:24:9
+   |
+24 |         Some(self)
+   |         ^^^^
+   |
+help: try calling `Some` as a method
+   |
+24 -         Some(self)
+24 +         self.Some()
+   |
+help: consider importing this tuple variant
+   |
+ 3 + use core::option::Option::Some;
+   |
+
+error[E0412]: cannot find type `Option` in this scope
+  --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/__private_api.rs:30:26
+   |
+30 |     fn into_kvs(self) -> Option<&'a [(&'a str, Value<'a>)]> {
+   |                          ^^^^^^ not found in this scope
+   |
+help: consider importing this enum
+   |
+ 3 + use core::option::Option;
+   |
+
+error[E0425]: cannot find value `None` in this scope
+  --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/__private_api.rs:31:9
+   |
+31 |         None
+   |         ^^^^ not found in this scope
+   |
+help: consider importing this unit variant
+   |
+ 3 + use core::option::Option::None;
+   |
+
+error[E0412]: cannot find type `Option` in this scope
+  --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/__private_api.rs:61:10
+   |
+61 |     kvs: Option<&[(&str, Value)]>,
+   |          ^^^^^^ not found in this scope
+   |
+help: consider importing this enum
+   |
+ 3 + use core::option::Option;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+  --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/__private_api.rs:74:29
+   |
+74 |         .module_path_static(Some(module_path))
+   |                             ^^^^ not found in this scope
+   |
+help: consider importing this tuple variant
+   |
+ 3 + use core::option::Option::Some;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+  --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/__private_api.rs:75:22
+   |
+75 |         .file_static(Some(loc.file()))
+   |                      ^^^^ not found in this scope
+   |
+help: consider importing this tuple variant
+   |
+ 3 + use core::option::Option::Some;
+   |
+
+error[E0425]: cannot find function, tuple struct or tuple variant `Some` in this scope
+  --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/__private_api.rs:76:15
+   |
+76 |         .line(Some(loc.line()));
+   |               ^^^^ not found in this scope
+   |
+help: consider importing this tuple variant
+   |
+ 3 + use core::option::Option::Some;
+   |
+
+error: bound modifier `?` can only be applied to `Sized`
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1221:8
+     |
+1221 |     T: ?Sized + Log,
+     |        ^^^^^^
+
+error: bound modifier `?` can only be applied to `Sized`
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1238:8
+     |
+1238 |     T: ?Sized + Log,
+     |        ^^^^^^
+
+error: bound modifier `?` can only be applied to `Sized`
+    --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.27/src/lib.rs:1255:8
+     |
+1255 |     T: ?Sized + Log,
+     |        ^^^^^^
+
+Some errors have detailed explanations: E0405, E0412, E0425, E0463, E0531.
+For more information about an error, try `rustc --explain E0405`.
+error: could not compile `log` (lib) due to 99 previous errors
+warning: build failed, waiting for other jobs to finish...
+error[E0308]: mismatched types
+  --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allocator-api2-0.2.21/src/stable/vec/partial_eq.rs:16:62
+   |
+10 |         impl<T, U, $($vars)*> PartialEq<$rhs> for $lhs
+   |                 - expected this type parameter
+...
+16 |             fn eq(&self, other: &$rhs) -> bool { self[..] == other[..] }
+   |                                                              ^^^^^^^^^ expected type parameter `U`, found `[U]`
+...
+31 | __impl_slice_eq1! { [A: Allocator] Cow<'_, [T]>, Vec<U, A> where T: Clone }
+   | --------------------------------------------------------------------------- in this macro invocation
+   |
+   = note: expected type parameter `U`
+                       found slice `[U]`
+   = note: this error originates in the macro `__impl_slice_eq1` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0308]: mismatched types
+  --> /home/sukriye/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allocator-api2-0.2.21/src/stable/vec/partial_eq.rs:18:62
+   |
+10 |         impl<T, U, $($vars)*> PartialEq<$rhs> for $lhs
+   |                 - expected this type parameter
+...
+18 |             fn ne(&self, other: &$rhs) -> bool { self[..] != other[..] }
+   |                                                              ^^^^^^^^^ expected type parameter `U`, found `[U]`
+...
+31 | __impl_slice_eq1! { [A: Allocator] Cow<'_, [T]>, Vec<U, A> where T: Clone }
+   | --------------------------------------------------------------------------- in this macro invocation
+   |
+   = note: expected type parameter `U`
+                       found slice `[U]`
+   = note: this error originates in the macro `__impl_slice_eq1` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+Some errors have detailed explanations: E0308, E0432, E0463.
+For more information about an error, try `rustc --explain E0308`.
+error: could not compile `allocator-api2` (lib) due to 4 previous errors
