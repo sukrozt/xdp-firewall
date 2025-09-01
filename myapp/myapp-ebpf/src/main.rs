@@ -3,7 +3,7 @@
 
 use aya_ebpf::{bindings::xdp_action, macros::{map, xdp}, programs::XdpContext, maps::HashMap};
 use aya_log_ebpf::info;
-use core::ptr::read_unaligned;
+//use core::ptr::read_unaligned;
 
 const ETH_HDR_LEN: usize = 14;
 const ETH_P_IP: u16 = 0x0800;
@@ -43,28 +43,28 @@ pub fn xdp_firewall_aya(ctx: XdpContext) -> u32 {
 fn try_xdp_firewall_aya(ctx: XdpContext) -> Result<u32, u32> {
     info!(&ctx, "received a packet");
 
-    // Check there's enough data for Ethernet header
+    /*// Check there's enough data for Ethernet header
     if ctx.data_end() - ctx.data() < ETH_HDR_LEN as usize {
         return Ok(xdp_action::XDP_PASS);
-    }
+    } */
 
     // Parse (read) Ethernet header
     let eth_hdr = ctx.data() as *const EthHdr;
     let eth_proto = unsafe { u16::from_be((*eth_hdr).ethertype) };
-    let ethertype_be = unsafe { read_unaligned(&(*eth_hdr).ethertype) };
+    //let ethertype_be = unsafe { read_unaligned(&(*eth_hdr).ethertype) };
 
     if eth_proto != ETH_P_IP {
         return Ok(xdp_action::XDP_PASS);
     }
 
-    if ctx.data_end() - ctx.data() < (ETH_HDR_LEN + core::mem::size_of::<Ipv4Hdr>()) as usize {
+    /*if ctx.data_end() - ctx.data() < (ETH_HDR_LEN + core::mem::size_of::<Ipv4Hdr>()) as usize {
         return Ok(xdp_action::XDP_PASS);
-    }
+    }*/
 
     // Parse IPv4 header
     let ip_hdr = (ctx.data() + ETH_HDR_LEN) as *const Ipv4Hdr;
     let src_ip = unsafe { u32::from_be((*ip_hdr).src) };
-    let src_be = unsafe { read_unaligned(&(*ip_hdr).src) };
+    //let src_be = unsafe { read_unaligned(&(*ip_hdr).src) };
 
 
     // Check blocklist map for src_ip

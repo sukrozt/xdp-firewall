@@ -1,29 +1,43 @@
-use aya::{Ebpf, maps::HashMap, programs::Xdp};
-use std::net::Ipv4Addr;
-use std::convert::TryInto;
+use anyhow::Context;
+use aya::programs::{Xdp, XdpFlags};
+use aya_log::EbpfLogger;
+use clap::Parser;
+use log::info;
+use tokio::signal; // 
 
-fn main() -> Result<(), anyhow::Error> {
-    // Load the compiled eBPF object
-    let mut bpf = Ebpf::load_file("target/bpfel-unknown-none/release/myapp")?;
+#[derive(Debug, Parser)]
+struct Opt {
+    #[clap(short, long, default_value = "ens33")]
+    iface: String, // 
+}
 
-    // Attach the XDP program to the interface (e.g., "eth0")
-    let program: &mut Xdp = bpf.program_mut("xdp_firewall_aya")
-        .ok_or(anyhow::anyhow!("Program not found"))?
-        .try_into()?;
-    program.load()?;
-    program.attach("eth0", aya::programs::XdpFlags::default())?;
+#[tokio::main] // 
+async fn main() -> Result<(), anyhow::Error> {
+    let opt = Opt::parse();
 
-    // Get the map
-    let mut blocked_ips: HashMap<_, u32, u8> = HashMap::try_from(
-        bpf.map_mut("BLOCKED_IPS").ok_or(anyhow::anyhow!("Map not found"))?
-    )?;
+    env_logger::init();
 
-    let ip = Ipv4Addr::new(192, 168, 1, 100);
-    let ip_u32 = u32::from(ip).to_be(); // network byte order
+    // This will include your eBPF object file as raw bytes at compile-time and load it at
+    // runtime. This approach is recommended for most real-world use cases. If you would
+    // like to specify the eBPF program at runtime rather than at compile-time, you can
+    // reach for `Ebpf::load_file` instead.
+    // 
+    // 
+    let mut bpf = aya::Ebpf::load(aya::include_bytes_aligned!(concat!(
+        env!("OUT_DIR"),
+        "/myapp"
+    )))?;
+    EbpfLogger::init(&mut bpf)?;
+    // 
+    let program: &mut Xdp = bpf.program_mut("myapp").unwrap().try_into()?;
+    program.load()?; // 
+                     // 
+    program.attach(&opt.iface, XdpFlags::default())
+        .context("failed to attach the XDP program with default flags - try changing XdpFlags::default() to XdpFlags::SKB_MODE")?;
 
-    blocked_ips.insert(ip_u32, 1, 0)?;
-
-    println!("Blocked IP: {}", ip);
+    info!("Waiting for Ctrl-C...");
+    signal::ctrl_c().await?;
+    info!("Exiting...");
 
     Ok(())
 }
