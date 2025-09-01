@@ -1,17 +1,19 @@
 use anyhow::Context;
-use aya::programs::{Xdp, XdpFlags};
+use aya::{ maps::HashMap, programs::{Xdp, XdpFlags},};
 use aya_log::EbpfLogger;
 use clap::Parser;
 use log::{info, warn};
-use tokio::signal; // 
+use tokio::signal;
+use std::net::Ipv4Addr;
+
 
 #[derive(Debug, Parser)]
 struct Opt {
     #[clap(short, long, default_value = "ens33")]
-    iface: String, // 
+    iface: String, 
 }
 
-#[tokio::main] // 
+#[tokio::main] 
 async fn main() -> Result<(), anyhow::Error> {
     let opt = Opt::parse();
 
@@ -37,6 +39,11 @@ async fn main() -> Result<(), anyhow::Error> {
     program.attach(&opt.iface, XdpFlags::default())
         .context("failed to attach the XDP program with default flags - try changing XdpFlags::default() to XdpFlags::SKB_MODE")?;
 
+    let mut blocklist: HashMap<_, u32, u32> =
+        HashMap::try_from(bpf.map_mut("BLOCKLIST").unwrap())?; 
+    let block_addr: u32 = Ipv4Addr::new(1, 1, 1, 1).into();
+    blocklist.insert(block_addr, 0, 0)?;
+    
     info!("Waiting for Ctrl-C...");
     signal::ctrl_c().await?;
     info!("Exiting...");
