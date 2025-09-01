@@ -5,12 +5,12 @@ edition.workspace = true
 
 [dependencies]
 myapp-common = { path = "../myapp-common" }
-
 aya-ebpf = { workspace = true }
 aya-log-ebpf = { workspace = true }
+network-types = "0.0.8"
 
 [build-dependencies]
-which = { workspace = true }
+which = { version = "8.0.0", default-features = false, features = ["real-sys"] }
 
 [[bin]]
 name = "myapp"

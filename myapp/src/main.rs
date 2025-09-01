@@ -2,7 +2,7 @@ use anyhow::Context;
 use aya::programs::{Xdp, XdpFlags};
 use aya_log::EbpfLogger;
 use clap::Parser;
-use log::info;
+use log::{info, warn};
 use tokio::signal; // 
 
 #[derive(Debug, Parser)]
@@ -27,11 +27,13 @@ async fn main() -> Result<(), anyhow::Error> {
         env!("OUT_DIR"),
         "/myapp"
     )))?;
-    EbpfLogger::init(&mut bpf)?;
-    // 
+    if let Err(e) = EbpfLogger::init(&mut bpf) {
+        // This can happen if you remove all log statements from your eBPF program.
+        warn!("failed to initialize eBPF logger: {e}");
+    }
+
     let program: &mut Xdp = bpf.program_mut("myapp").unwrap().try_into()?;
-    program.load()?; // 
-                     // 
+    program.load()?; 
     program.attach(&opt.iface, XdpFlags::default())
         .context("failed to attach the XDP program with default flags - try changing XdpFlags::default() to XdpFlags::SKB_MODE")?;
 
