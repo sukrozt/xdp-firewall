@@ -11,12 +11,14 @@ use std::net::Ipv4Addr;
 struct Opt {
     #[clap(short, long, default_value = "ens33")]
     iface: String, 
+    /// List of IPv4 addresses to block
+    #[clap(short, long, value_parser)]
+    block: Vec<Ipv4Addr>,
 }
 
 #[tokio::main] 
 async fn main() -> Result<(), anyhow::Error> {
     let opt = Opt::parse();
-
     env_logger::init();
 
     // This will include your eBPF object file as raw bytes at compile-time and load it at
@@ -41,8 +43,14 @@ async fn main() -> Result<(), anyhow::Error> {
 
     let mut blocklist: HashMap<_, u32, u32> =
         HashMap::try_from(bpf.map_mut("BLOCKLIST").unwrap())?; 
-    let block_addr: u32 = Ipv4Addr::new(1, 1, 1, 1).into();
-    blocklist.insert(block_addr, 0, 0)?;
+    /*let block_addr: u32 = Ipv4Addr::new(1, 1, 1, 1).into();
+    blocklist.insert(block_addr, 0, 0)?;*/
+    //that was hardcoded ip blocking
+    for ip in &opt.block {
+        let addr: u32 = (*ip).into();
+        blocklist.insert(addr, 0, 0)?;
+        info!("Added {ip} to blocklist");
+    }
     
     info!("Waiting for Ctrl-C...");
     signal::ctrl_c().await?;

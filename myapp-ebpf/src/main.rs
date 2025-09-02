@@ -32,7 +32,7 @@ pub fn myapp(ctx: XdpContext) -> u32 {
     }
 }
 
-#[inline(always)] // 
+#[inline(always)]
 unsafe fn ptr_at<T>(ctx: &XdpContext, offset: usize) -> Result<*const T, ()> {
     let start = ctx.data();
     let end = ctx.data_end();
