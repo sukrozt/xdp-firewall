@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Blocklist Control</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>eBPF Firewall Control</h1>
+
+  <input id="ip" type="text" placeholder="Enter IP to block">
+  <button onclick="addIP()">Block IP</button>
+  <button onclick="delIP()">Unblock IP</button>
+
+  <h2>Current Blocklist</h2>
+  <ul id="list"></ul>
+
+  <script src="script.js"></script>
+</body>
+</html>

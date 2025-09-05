@@ -12,10 +12,12 @@ use axum::{
     Router,
     extract::Json as AxumJson,
     Json,
+    response::Html,
 };
 use serde::Deserialize;
 use serde_json::{json, Value};
 use tokio::sync::Mutex;
+use tower_http::services::ServeDir;
 
 #[derive(Debug, Parser)]
 struct Opt {
@@ -65,50 +67,15 @@ async fn main() -> Result<(), anyhow::Error> {
     }
 
     // Axum routes
+
     let app = Router::new()
     .route("/", get(|| async { "myapp is running" }))
     .route("/blocklist", get(get_blocklist))
+    .route("/block", get(block_page).post(block_ip))
+    .route("/unblock", get(unblock_page).post(unblock_ip))
+    .nest_service("/ui", ServeDir::new("static")) // <---- serves /ui/block.html
     .with_state(state);
-        /*.route("/block", post({
-            let blocklist = blocklist.clone();
-            move |payload: AxumJson<IpPayload>| {
-                let blocklist = blocklist.clone();
-                async move {
-                    let ip: Ipv4Addr = payload.ip.parse().unwrap();
-                    let addr: u32 = ip.into();
-                    blocklist.lock().await.insert(addr, 0, 0).unwrap();
-                    AxumJson(json!({"status": "blocked", "ip": ip.to_string()}))
-                }
-            }
-        }))
-        .route("/unblock", post({
-            let blocklist = blocklist.clone();
-            move |payload: AxumJson<IpPayload>| {
-                let blocklist = blocklist.clone();
-                async move {
-                    let ip: Ipv4Addr = payload.ip.parse().unwrap();
-                    let addr: u32 = ip.into();
-                    blocklist.lock().await.remove(&addr).unwrap();
-                    AxumJson(json!({"status": "unblocked", "ip": ip.to_string()}))
-                }
-            }
-        }))
-        .route("/blocklist", get({
-            let blocklist = blocklist.clone();
-            move || {
-                let ips: Vec<String> = blocklist
-                    .iter()
-                    .filter_map(|res| {
-                        match res {
-                            Ok((k, _)) => Some(Ipv4Addr::from(k).to_string()),
-                            Err(_) => None,
-                        }
-                    })
-                    .collect();
 
-                async move { Json(json!({ "blocklist": ips })) }
-            }
-        }))*/
     async fn get_blocklist(
         State(blocklist): State<Arc<Mutex<StdHashMap<Ipv4Addr, u32>>>>,
     ) -> Json<Value> {
@@ -117,6 +84,90 @@ async fn main() -> Result<(), anyhow::Error> {
         Json(json!({ "blocklist": ips }))
     }
 
+    use axum::response::Html;
+
+    async fn block_page() -> Html<&'static str> {
+            Html(r#"
+        <!doctype html>
+        <html>
+        <body>
+            <h1>Block an IP</h1>
+            <form id="f">
+            <input id="ip" placeholder="e.g. 1.2.3.4" required />
+            <button type="submit">Block</button>
+            </form>
+            <script>
+            document.getElementById('f').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const ip = document.getElementById('ip').value.trim();
+                const res = await fetch('/block', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({ ip })
+                });
+                const data = await res.json();
+                alert(JSON.stringify(data));
+            });
+            </script>
+        </body>
+        </html>
+        "#)
+        }
+
+    async fn unblock_page() -> Html<&'static str> {
+        Html(r#"
+        <!doctype html>
+        <html>
+        <body>
+            <h1>Unblock an IP</h1>
+            <form id="f">
+            <input id="ip" placeholder="e.g. 1.2.3.4" required />
+            <button type="submit">Unblock</button>
+            </form>
+            <script>
+            document.getElementById('f').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const ip = document.getElementById('ip').value.trim();
+                const res = await fetch('/unblock', {
+                    method: 'POST',
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({ ip })
+                });
+                const data = await res.json();
+                alert(JSON.stringify(data));
+            });
+            </script>
+        </body>
+        </html>
+        "#)
+}
+
+
+    async fn block_ip(
+    State(blocklist): State<Arc<Mutex<StdHashMap<Ipv4Addr, u32>>>>,
+    AxumJson(payload): AxumJson<IpPayload>,
+) -> Json<Value> {
+    let ip: Ipv4Addr = match payload.ip.parse() {
+        Ok(ip) => ip,
+        Err(_) => return Json(json!({"error": "Invalid IP address"})),
+    };
+    blocklist.lock().await.insert(ip, 0);
+    Json(json!({ "status": "blocked", "ip": ip.to_string() }))
+}
+
+
+    async fn unblock_ip(
+        State(blocklist): State<Arc<Mutex<StdHashMap<Ipv4Addr, u32>>>>,
+        AxumJson(payload): AxumJson<IpPayload>,
+    ) -> Json<Value> {
+        let ip: Ipv4Addr = match payload.ip.parse() {
+            Ok(ip) => ip,
+            Err(_) => return Json(json!({"error": "Invalid IP address"})),
+        };
+        let addr: u32 = ip.into();
+        blocklist.lock().await.remove(&ip);
+        Json(json!({"status": "unblocked", "ip": ip.to_string()}))
+    }               
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await?;
     info!("REST API running on http://0.0.0.0:3000");
