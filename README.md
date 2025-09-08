@@ -19,10 +19,13 @@ cargo run --release --config 'target."cfg(all())".runner="sudo -E"'
 ```
 You can also add IPs to blocklist and select ethernet interface from cli by adding args as:
 
+```shell
 RUST_LOG=info cargo run --config 'target."cfg(all())".runner="sudo -E"' -- -i ethernet_interface -b IPv4_address_dlike_to_ban
-
+```
 adding it "RUST_LOG=info" to cmd shows the packets that comes to your machine from which IPs and the blocking state of them.
+
 action 2 means IP is not in the blocklist
+
 action 1 means IP is blocked
 
 Cargo build scripts are used to automatically build the eBPF correctly and include it in the
