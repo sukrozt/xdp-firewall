@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Block IP</title>
+  <script>
+    async function blockIP() {
+      let ip = document.getElementById("ip").value;
+      let res = await fetch("/block", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ip })
+      });
+      let data = await res.json();
+      document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+    }
+  </script>
+        <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Block IP</h1>
+  <input type="text" id="ip" placeholder="Enter IP address" />
+  <button onclick="blockIP()">Block</button>
+  <pre id="result"></pre>
+  <a href="/">Back</a>
+</body>
+</html>

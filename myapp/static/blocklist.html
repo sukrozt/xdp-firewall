@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blocklist</title>
+  <script>
+    async function loadBlocklist() {
+      let res = await fetch("/api/blocklist");
+      let data = await res.json();
+      let list = document.getElementById("list");
+      list.innerHTML = "";
+      data.blocklist.forEach(ip => {
+        let li = document.createElement("li");
+        li.textContent = ip;
+        list.appendChild(li);
+      });
+    }
+    window.onload = loadBlocklist;
+  </script>
+        <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Blocked IPs</h1>
+  <ul id="list"><li>Loading...</li></ul>
+  <a href="/">Back</a>
+</body>
+</html>

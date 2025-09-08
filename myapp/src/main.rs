@@ -93,10 +93,15 @@ async fn main() -> Result<(), anyhow::Error> {
 
     // build router
     let app = Router::new()
-        .route("/", get(|| async { "myapp is running" }))
-        .route("/blocklist", get(get_blocklist))
-        .route("/block", get(block_page).post(block_ip))
-        .route("/unblock", get(unblock_page).post(unblock_ip))
+        .route("/", get(|| async { Html(include_str!("../static/index.html")) }))
+        //.route("/blocklist", get(get_blocklist))
+        .route(
+        "/blocklist",
+        get(|| async { Html(include_str!("../static/blocklist.html")) }),
+        )
+        .route("/api/blocklist", get(get_blocklist))
+        .route("/block", get(|| async { Html(include_str!("../static/block.html")) }).post(block_ip))
+        .route("/unblock", get(|| async { Html(include_str!("../static/unblock.html")) }).post(unblock_ip))
         .nest_service("/ui", ServeDir::new("static"))
         .with_state(state.clone());
 
@@ -106,62 +111,6 @@ async fn main() -> Result<(), anyhow::Error> {
         let bl = state.user_blocklist.lock().await;
         let ips: Vec<String> = bl.iter().map(|(k, _)| k.to_string()).collect();
         Json(json!({ "blocklist": ips }))
-    }
-
-    async fn block_page() -> Html<&'static str> {
-        Html(r#"
-        <!doctype html>
-        <html>
-        <body>
-            <h1>Block an IP</h1>
-            <form id="f">
-            <input id="ip" placeholder="e.g. 1.2.3.4" required />
-            <button type="submit">Block</button>
-            </form>
-            <script>
-            document.getElementById('f').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const ip = document.getElementById('ip').value.trim();
-                const res = await fetch('/block', {
-                method: 'POST',
-                headers: {'Content-Type':'application/json'},
-                body: JSON.stringify({ ip })
-                });
-                const data = await res.json();
-                alert(JSON.stringify(data));
-            });
-            </script>
-        </body>
-        </html>
-        "#)
-    }
-
-    async fn unblock_page() -> Html<&'static str> {
-        Html(r#"
-        <!doctype html>
-        <html>
-        <body>
-            <h1>Unblock an IP</h1>
-            <form id="f">
-            <input id="ip" placeholder="e.g. 1.2.3.4" required />
-            <button type="submit">Unblock</button>
-            </form>
-            <script>
-            document.getElementById('f').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const ip = document.getElementById('ip').value.trim();
-                const res = await fetch('/unblock', {
-                    method: 'POST',
-                    headers: {'Content-Type':'application/json'},
-                    body: JSON.stringify({ ip })
-                });
-                const data = await res.json();
-                alert(JSON.stringify(data));
-            });
-            </script>
-        </body>
-        </html>
-        "#)
     }
 
     async fn block_ip(

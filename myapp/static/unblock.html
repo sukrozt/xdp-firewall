@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Unblock IP</title>
+  <script>
+    async function unblockIP() {
+      let ip = document.getElementById("ip").value;
+      let res = await fetch("/unblock", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ip })
+      });
+      let data = await res.json();
+      document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+    }
+  </script>
+        <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Unblock IP</h1>
+  <input type="text" id="ip" placeholder="Enter IP address" />
+  <button onclick="unblockIP()">Unblock</button>
+  <pre id="result"></pre>
+  <a href="/">Back</a>
+</body>
+</html>
