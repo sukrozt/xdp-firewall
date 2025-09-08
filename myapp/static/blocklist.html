@@ -17,11 +17,52 @@
     }
     window.onload = loadBlocklist;
   </script>
-        <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/ui/style.css">
+  <style>
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .header h1 { margin: 0; }
+    .header .back-btn {
+      position: absolute;
+      right: 0;
+      top: 0;
+      background: #007BFF;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+      transition: all 0.2s ease;
+    }
+    .header .back-btn:hover {
+      background: #0056b3;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 86, 179, 0.4);
+    }
+    ul { list-style: none; margin: 20px 0; padding: 0; }
+    ul li {
+      background: #f6f8fc;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      border: 1px solid #e2e6ef;
+    }
+  </style>
 </head>
 <body>
-  <h1>Blocked IPs</h1>
-  <ul id="list"><li>Loading...</li></ul>
-  <a href="/">Back</a>
+  <div class="container">
+    <div class="header">
+      <h1>Blocked IPs</h1>
+      <a href="/" class="back-btn">Back</a>
+    </div>
+    <ul id="list"><li>Loading...</li></ul>
+  </div>
 </body>
 </html>

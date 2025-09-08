@@ -94,15 +94,12 @@ async fn main() -> Result<(), anyhow::Error> {
     // build router
     let app = Router::new()
         .route("/", get(|| async { Html(include_str!("../static/index.html")) }))
-        //.route("/blocklist", get(get_blocklist))
-        .route(
-        "/blocklist",
-        get(|| async { Html(include_str!("../static/blocklist.html")) }),
-        )
+        .route("/blocklist", get(|| async { Html(include_str!("../static/blocklist.html")) }),)
         .route("/api/blocklist", get(get_blocklist))
         .route("/block", get(|| async { Html(include_str!("../static/block.html")) }).post(block_ip))
         .route("/unblock", get(|| async { Html(include_str!("../static/unblock.html")) }).post(unblock_ip))
         .nest_service("/ui", ServeDir::new("static"))
+        
         .with_state(state.clone());
 
     async fn get_blocklist(
