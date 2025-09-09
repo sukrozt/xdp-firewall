@@ -36,14 +36,14 @@ struct IpPayload {
 // Shared application state
 struct AppState {
     user_blocklist: Mutex<StdHashMap<Ipv4Addr, u32>>,
-    bpf: Mutex<aya::Ebpf>, // <-- store bpf here, we'll borrow maps from it inside handlers
+    bpf: Mutex<aya::Ebpf>,
 }
 type SharedState = Arc<AppState>;
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
     let opt = Opt::parse();
-    env_logger::init();
+    env_logger::init(); //since env_logger, RUST_LOG=info shows all logs
 
     // load BPF
     let mut bpf = aya::Ebpf::load(aya::include_bytes_aligned!(concat!(

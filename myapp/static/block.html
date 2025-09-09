@@ -13,14 +13,16 @@
       });
       let data = await res.json();
 
-      // append to list if success
-      if (data.status === "blocked") {
-        let li = document.createElement("li");
-        li.textContent = data.ip;
-        document.getElementById("ip-list").appendChild(li);
-      }
-
+      // Show JSON in <pre>
       document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+
+      // Show user-friendly message in #messages
+      let msgBox = document.getElementById("messages");
+      if (data.status) {
+        msgBox.innerHTML += `<p>${data.status.toUpperCase()}: ${data.ip}</p>`;
+      } else if (data.error) {
+        msgBox.innerHTML += `<p>ERROR: ${data.error}</p>`;
+      }
     }
   </script>
   <link rel="stylesheet" href="/ui/style.css">
@@ -72,6 +74,19 @@
       border-radius: 8px;
       border: 1px solid #e2e6ef;
     }
+
+    #messages {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    #messages p {
+      margin: 6px 0;
+      padding: 8px 12px;
+      background: #eef2f9;
+      border-radius: 6px;
+    }
   </style>
 </head>
 <body>
@@ -83,6 +98,11 @@
 
     <input type="text" id="ip" placeholder="Enter IP address" />
     <button onclick="blockIP()">Block</button>
+
+    <!-- Human-readable messages -->
+    <div id="messages"></div>
+
+    <!-- Raw JSON result -->
     <pre id="result"></pre>
   </div>
 </body>
