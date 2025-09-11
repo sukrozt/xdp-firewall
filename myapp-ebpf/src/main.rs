@@ -2,16 +2,17 @@
 #![no_main]
 #![allow(nonstandard_style, dead_code)]
 
-
-use aya_ebpf::{bindings::xdp_action, macros::{map, xdp}, programs::XdpContext, maps::HashMap};
+use aya_ebpf::{
+    bindings::xdp_action, 
+    macros::{map, xdp}, 
+    programs::XdpContext, 
+    maps::HashMap};
 use aya_log_ebpf::info;
 
 use core::mem;
 use network_types::{
     eth::{EthHdr, EtherType},
     ip::Ipv4Hdr,
-    //tcp::TcpHdr,
-    //udp::UdpHdr,
 };
 
 #[cfg(not(test))]
@@ -71,24 +72,3 @@ fn try_myapp(ctx: XdpContext) -> Result<u32, ()> {
 
     Ok(action)
 }
-    /* 
-    //it was for the parsing packets
-    let source_port = match unsafe { (*ipv4hdr).proto } {
-        IpProto::Tcp => {
-            let tcphdr: *const TcpHdr =
-                ptr_at(&ctx, EthHdr::LEN + Ipv4Hdr::LEN)?;
-            u16::from_be(unsafe { (*tcphdr).source })
-        }
-        IpProto::Udp => {
-            let udphdr: *const UdpHdr =
-                ptr_at(&ctx, EthHdr::LEN + Ipv4Hdr::LEN)?;
-            u16::from_be_bytes(unsafe { (*udphdr).source })
-        }
-        _ => return Err(()),
-    };
-
-
-    // 
-    info!(&ctx, "SRC IP: {:i}, SRC PORT: {}", source_addr, source_port);
-
-    Ok(xdp_action::XDP_PASS)*/
