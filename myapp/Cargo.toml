@@ -26,6 +26,7 @@ tokio = { workspace = true, features = [
     "signal",
 ] }
 clap = { workspace = true, features = ["derive"] }
+memoffset = "0.9.1"
 
 [build-dependencies]
 anyhow = { workspace = true }
@@ -48,3 +49,8 @@ myapp-ebpf = { path = "../myapp-ebpf" }
 [[bin]]
 name = "myapp"
 path = "src/main.rs"
+
+[[bin]]
+name = "throttle"
+path = "src/throttle.rs"
+
